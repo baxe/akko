@@ -7,12 +7,8 @@ defmodule Akko.Consumer do
 
   def handle_event({:MESSAGE_CREATE, msg, _ws_state}) do
     IO.puts(msg.content)
-
-    :done
   end
 
   # Handle other event types or the consumer shits itself
-  def handle_event(_event) do
-    :noop
-  end
+  def handle_event(_event), do: :noop
 end
