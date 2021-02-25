@@ -1,16 +1,14 @@
 defmodule Akko.Commands do
   alias Nostrum.Api
 
-  @prefix Application.get_env(:example_app, :prefix, "!")
-
-  def command(%{id: id, content: @prefix <> "ping", channel_id: channel_id}) do
+  def handle("ping", msg) do
     Api.create_message(
-      channel_id,
+      msg.channel_id,
       content: "pong",
       allowed_mentions: :none,
-      message_reference: %{message_id: id}
+      message_reference: %{message_id: msg.id}
     )
   end
 
-  def command(_invalid_command), do: :noop
+  def handle(_invalid_command), do: :noop
 end
