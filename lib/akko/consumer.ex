@@ -1,12 +1,21 @@
 defmodule Akko.Consumer do
   use Nostrum.Consumer
 
+  alias Akko.Consumer.{
+    MessageCreate,
+    Ready
+  }
+
   def start_link do
     Consumer.start_link(__MODULE__)
   end
 
   def handle_event({:MESSAGE_CREATE, msg, _ws_state}) do
-    IO.puts(msg.content)
+    MessageCreate.handle(msg)
+  end
+
+  def handle_event({:READY, _, _ws_state}) do
+    Ready.handle()
   end
 
   # Handle other event types or the consumer shits itself
